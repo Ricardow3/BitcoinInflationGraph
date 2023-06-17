@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>D3 graph</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    #div-text {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 5px;
+      border: solid 2px #32a1ce;
+      border-radius: 5px;
+    }
+    #div-text p {
+      margin: 0;
+    }
+    #div-text p:first-child {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+  
+  <script type="module" src="script.js"></script>
+  
+  <!-- Create a div where the graph will take place -->
+  <div id="my_dataviz"></div>
+</body>
