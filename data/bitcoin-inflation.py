@@ -44,7 +44,7 @@ class InflationPerHalving:
     def inflationPeriod(self, start_block, end_block, inflation_rate, inflation_list):
         self.inflation_rate = inflation_rate * (1 + inflation_list[end_block]) / (1 + inflation_list[start_block])
         self.inflation_year = (self.inflation_rate - 1) * 100
-        self.inflation_year = round(self.inflation_year, 2)
+        self.inflation_year = round(self.inflation_year, 3) # adjust the accuracy of the result 
         return self.inflation_year, self.inflation_rate
     
     def arrayInflation(self, inflation_list, inf_last_halv_list = None):
@@ -103,8 +103,20 @@ third_halving = InflationPerHalving(2)
 inflation_list3 = third_halving.inflationBlock(third_halv_mined, third_issue)
 arr_inf_per_day3, arr_inflation3 = third_halving.arrayInflation(inflation_list3, inflation_list2)
 
+fourth_issue = 6.25
+fourth_halv_mined = third_halv_mined + halving_blocks * third_issue
+fourth_halving = InflationPerHalving(3)
+inflation_list4 = fourth_halving.inflationBlock(fourth_halv_mined, fourth_issue)
+arr_inf_per_day4, arr_inflation4 = fourth_halving.arrayInflation(inflation_list4, inflation_list3)
 
-inflation_total = arr_inflation + arr_inflation2 + arr_inflation3
+fifth_issue = 3.125
+fifth_halv_mined = fourth_halv_mined + halving_blocks * fourth_issue
+fifth_halving = InflationPerHalving(4)
+inflation_list5 = fifth_halving.inflationBlock(fifth_halv_mined, fifth_issue)
+arr_inf_per_day5, arr_inflation5 = fifth_halving.arrayInflation(inflation_list5, inflation_list4)
+
+
+inflation_total = arr_inflation + arr_inflation2 + arr_inflation3 + arr_inflation4 + arr_inflation5
 
 blocks_per_year = 6 * 24 * 365
 step = 420
@@ -130,7 +142,8 @@ arr_xx = pd.Series(x_arrtotal, index=None)
 arr_total = pd.Series(arr_total, index=None)
 
 df = pd.DataFrame(data={'blockNumber': arr_xx, 'annualInflationRate': arr_total})
-# df.to_csv('btc_inflation.csv', index=False, header=True) # Generate .csv file with data
+
+df.to_csv('btc_inflation.csv', index=False, header=True) # Generate .csv file with data
 
 # print(df)
 
